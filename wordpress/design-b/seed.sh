@@ -616,4 +616,11 @@ if ! $WP theme list --field=name | grep -qx twentytwentyfive; then
 fi
 $WP theme activate tur-secondhand >/dev/null
 
+# Re-assert coming-soon is disabled as the final step. WooCommerce's own onboarding/
+# "Launch your store" task-list logic has been observed re-enabling this option sometime
+# after it was first set to "no" earlier in this script (likely triggered by the plugin's
+# own async admin tasks during setup) — reapplying it last, after everything else has run,
+# guards against that regression so the storefront never silently ends up gated again.
+$WP option update woocommerce_coming_soon "no" >/dev/null
+
 log "Seed script completed."

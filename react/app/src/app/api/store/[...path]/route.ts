@@ -41,14 +41,18 @@ async function proxy(req: NextRequest, path: string[]) {
 
   const upstream = await fetch(targetUrl, { method: req.method, headers, body, cache: "no-store" });
   const rawPayload = await upstream.text();
-  // Cart responses embed product image URLs pointing at this backend's public localhost:port
-  // origin (see rewriteImageOrigin in lib/store-api.ts for why that breaks next/image's
-  // server-side fetch) — rewrite every occurrence to the internal Docker Compose hostname
-  // before this JSON reaches the browser/cart state. WordPress's JSON encoder escapes forward
-  // slashes by default (json_encode without JSON_UNESCAPED_SLASHES), so the raw text actually
-  // contains "http:\/\/localhost:8093" with backslashes — match that escaped form too, not just
-  // the unescaped "http://" a plain URL regex would expect.
-  const payload = rawPayload.replace(/https?:\\?\/\\?\/localhost:\d+/g, (match) =>
+  // Cart responses embed product image URLs pointing at this backend's public origin — whatever
+  // domain WooCommerce's home_url resolves to (a "localhost:PORT" origin locally, or the public
+  // HTTPS subdomain in production — see rewriteImageOrigin in lib/store-api.ts for why either one
+  // breaks next/image's server-side fetch) — rewrite every occurrence to the internal Docker
+  // Compose hostname before this JSON reaches the browser/cart state. WordPress's JSON encoder
+  // escapes forward slashes by default (json_encode without JSON_UNESCAPED_SLASHES), so the raw
+  // text actually contains e.g. "https:\/\/tur3.dancingsalamanders.com" with backslashes — match
+  // that escaped form too, not just the unescaped "https://" a plain URL regex would expect. The
+  // response also has a non-image `permalink` field pointing at the same origin, but it's never
+  // read/rendered anywhere in this app (see lib/store-api.ts's StoreApiProduct type), so
+  // rewriting it too is harmless.
+  const payload = rawPayload.replace(/https?:\\?\/\\?\/[^\\/"]+/g, (match) =>
     rewriteImageOrigin(match.replace(/\\\//g, "/")),
   );
 

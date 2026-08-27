@@ -107,18 +107,20 @@ export function decodeHtmlEntities(value: string): string {
 }
 
 // WooCommerce builds product image URLs from the site's own `home_url` — which for these demo
-// backends is the *public* browser-facing address (e.g. "http://localhost:8093"), because that's
-// what wp-admin/checkout emails need to point at. But Next.js's built-in image optimizer runs
-// server-side, inside the nextjs container, where "localhost:8093" resolves back to itself
-// (not the wordpress container) — Next.js 15+ also actively refuses to fetch any hostname that
-// resolves to a private/loopback IP as an SSRF guard, so these requests fail outright rather
-// than just 404ing. Rewrite the origin to the internal Docker Compose service hostname
+// backends is always the *public* browser-facing address (e.g. "http://localhost:8093" locally,
+// or "https://tur3.dancingsalamanders.com" in production), because that's what wp-admin/checkout
+// emails need to point at. But Next.js's built-in image optimizer runs server-side, inside the
+// nextjs container, where that public hostname either resolves back to itself (local) or simply
+// isn't allow-listed in next.config.ts's images.remotePatterns (production) — and Next.js 15+
+// also actively refuses to fetch any hostname that resolves to a private/loopback IP as an SSRF
+// guard. Rewrite the origin (whatever it is) to the internal Docker Compose service hostname
 // (WORDPRESS_STORE_API_URL, e.g. "http://wordpress") before handing image URLs to next/image —
-// already allow-listed in next.config.ts's images.remotePatterns for exactly this reason. The
+// that hostname is the only one allow-listed in next.config.ts's images.remotePatterns. The
 // browser itself never fetches this URL directly; it only ever requests our own `/_next/image`
-// route, which resolves it server-side, so the rewritten internal hostname works transparently.
+// route, which resolves it server-side, so the rewritten internal hostname works transparently
+// regardless of what public domain WooCommerce originally generated the URL against.
 function rewriteImageOrigin(url: string): string {
-  return url.replace(/^https?:\/\/localhost:\d+/, STORE_API_URL.replace(/\/$/, ""));
+  return url.replace(/^https?:\/\/[^/]+/, STORE_API_URL.replace(/\/$/, ""));
 }
 
 function normalizeImages<T extends { images: StoreApiImage[] }>(item: T): T {
