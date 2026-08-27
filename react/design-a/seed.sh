@@ -11,7 +11,7 @@ set -eu
 # used by the WordPress track (see OVERVIEW.md decisions log).
 WP="wp --allow-root --path=/var/www/html"
 INTERNAL_URL="http://wordpress"
-PUBLIC_URL="http://localhost:8093"
+PUBLIC_URL="${WORDPRESS_SITE_URL:-http://localhost:8093}"
 PRODUCTS_JSON="/mnt/content/products.json"
 PRODUCTS_DIR="/mnt/assets/products"
 

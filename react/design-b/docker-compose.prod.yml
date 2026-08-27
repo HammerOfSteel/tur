@@ -1,0 +1,82 @@
+# Production deployment for React Design B (headless storefront + WooCommerce backend).
+# Public URL: https://tur4.dancingsalamanders.com
+#   - Next.js storefront proxied from :3012 by nginx at /
+#   - WordPress admin/API backend proxied from :3013 by nginx at /wp-admin, /wp-json, etc.
+# wp-admin: admin / demo1234
+#
+# Usage: docker compose -f docker-compose.prod.yml up -d --build
+name: tur-secondhand-react-design-b
+services:
+  db:
+    image: mysql:8.0
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+      MYSQL_ROOT_PASSWORD: wordpress
+    volumes:
+      - db_data:/var/lib/mysql
+
+  wordpress:
+    image: wordpress:6.9-php8.2-apache
+    depends_on:
+      - db
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3013:80"
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+    volumes:
+      - wp_data:/var/www/html
+
+  wpcli:
+    image: wordpress:cli-php8.2
+    user: "33:33"
+    depends_on:
+      - db
+      - wordpress
+    restart: on-failure
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_SITE_URL: https://tur4.dancingsalamanders.com
+    volumes:
+      - wp_data:/var/www/html
+      - type: bind
+        source: ../../content
+        target: /mnt/content
+        read_only: true
+      - type: bind
+        source: ../../assets
+        target: /mnt/assets
+        read_only: true
+      - type: bind
+        source: ./seed.sh
+        target: /mnt/seed.sh
+        read_only: true
+    command: ["sh", "/mnt/seed.sh"]
+
+  nextjs:
+    build:
+      context: ../..
+      dockerfile: react/app/Dockerfile
+      args:
+        NEXT_PUBLIC_THEME_VARIANT: b
+    restart: unless-stopped
+    depends_on:
+      - wordpress
+    ports:
+      - "127.0.0.1:3012:3000"
+    environment:
+      WORDPRESS_STORE_API_URL: http://wordpress
+      NEXT_PUBLIC_THEME_VARIANT: b
+
+volumes:
+  db_data:
+  wp_data:

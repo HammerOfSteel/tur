@@ -1,0 +1,61 @@
+name: Deploy to production
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Deploy to Kamatera VPS
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: 45.248.37.221
+          username: root
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          script_stop: true
+          # Timeout generous enough for the Next.js builds (two builds, ~5-8 min each)
+          command_timeout: 25m
+          script: |
+            set -e
+
+            REPO_DIR="/opt/tur-secondhand"
+
+            echo "=== Syncing repo ==="
+            if [ -d "$REPO_DIR/.git" ]; then
+              git -C "$REPO_DIR" pull --ff-only
+            else
+              git clone https://github.com/HammerOfSteel/tur.git "$REPO_DIR"
+            fi
+
+            cd "$REPO_DIR"
+
+            echo "=== WordPress Design A ==="
+            docker compose \
+              -p tur-secondhand-wordpress-design-a \
+              -f wordpress/design-a/docker-compose.prod.yml \
+              up -d --remove-orphans
+
+            echo "=== WordPress Design B ==="
+            docker compose \
+              -p tur-secondhand-wordpress-design-b \
+              -f wordpress/design-b/docker-compose.prod.yml \
+              up -d --remove-orphans
+
+            echo "=== React Design A (build + up) ==="
+            docker compose \
+              -p tur-secondhand-react-design-a \
+              -f react/design-a/docker-compose.prod.yml \
+              up -d --build --remove-orphans
+
+            echo "=== React Design B (build + up) ==="
+            docker compose \
+              -p tur-secondhand-react-design-b \
+              -f react/design-b/docker-compose.prod.yml \
+              up -d --build --remove-orphans
+
+            echo "=== All stacks started ==="
+            docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"

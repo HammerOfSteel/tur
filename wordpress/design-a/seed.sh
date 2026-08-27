@@ -7,10 +7,10 @@ WP="wp --allow-root --path=/var/www/html"
 # Internal-only URL: reachable from the wpcli container over the Docker network, used only
 # for health-check curls before WordPress is fully installed/configured.
 INTERNAL_URL="http://wordpress"
-# Public-facing URL: the actual host-mapped port a browser/smoke-test uses (docker-compose.yml
-# maps 8091:80). WordPress's siteurl/home options MUST match this, or WordPress will generate
-# internal-only links (nav, assets, checkout redirects) that don't resolve from the host.
-PUBLIC_URL="http://localhost:8091"
+# Public-facing URL: must match what a browser uses to reach this WordPress instance.
+# Overridden by WORDPRESS_SITE_URL env var (set in docker-compose.prod.yml for production).
+# Falls back to the local dev port so local `docker compose up` requires no extra config.
+PUBLIC_URL="${WORDPRESS_SITE_URL:-http://localhost:8091}"
 PRODUCTS_JSON="/mnt/content/products.json"
 PAGES_JSON="/mnt/content/pages.sv.json"
 PRODUCTS_DIR="/mnt/assets/products"

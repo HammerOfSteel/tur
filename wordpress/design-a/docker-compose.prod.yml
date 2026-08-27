@@ -1,0 +1,92 @@
+# Production deployment for WordPress Design A.
+# Public URL: https://tur.dancingsalamanders.com
+# Nginx proxies :3008 → this service. wp-admin: admin / demo1234
+#
+# Usage: docker compose -f docker-compose.prod.yml up -d
+#
+# The `name:` pin ensures this stack's volumes/networks are isolated from the
+# other three demo stacks running on the same host.
+name: tur-secondhand-wordpress-design-a
+services:
+  db:
+    image: mysql:8.0
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+      MYSQL_ROOT_PASSWORD: wordpress
+    volumes:
+      - db_data:/var/lib/mysql
+
+  wordpress:
+    image: wordpress:6.9-php8.2-apache
+    depends_on:
+      - db
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3008:80"
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+    volumes:
+      - wp_data:/var/www/html
+      - type: bind
+        source: ../theme/tur-secondhand
+        target: /var/www/html/wp-content/themes/tur-secondhand
+        read_only: true
+      - type: bind
+        source: ./theme-overrides/theme.json
+        target: /var/www/html/wp-content/themes/tur-secondhand/theme.json
+        read_only: true
+      - type: bind
+        source: ./theme-overrides/variant.css
+        target: /var/www/html/wp-content/themes/tur-secondhand/variant.css
+        read_only: true
+
+  wpcli:
+    image: wordpress:cli-php8.2
+    user: "33:33"
+    depends_on:
+      - db
+      - wordpress
+    restart: on-failure
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_SITE_URL: https://tur.dancingsalamanders.com
+    volumes:
+      - wp_data:/var/www/html
+      - type: bind
+        source: ../theme/tur-secondhand
+        target: /var/www/html/wp-content/themes/tur-secondhand
+        read_only: true
+      - type: bind
+        source: ./theme-overrides/theme.json
+        target: /var/www/html/wp-content/themes/tur-secondhand/theme.json
+        read_only: true
+      - type: bind
+        source: ./theme-overrides/variant.css
+        target: /var/www/html/wp-content/themes/tur-secondhand/variant.css
+        read_only: true
+      - type: bind
+        source: ../../content
+        target: /mnt/content
+        read_only: true
+      - type: bind
+        source: ../../assets
+        target: /mnt/assets
+        read_only: true
+      - type: bind
+        source: ./seed.sh
+        target: /mnt/seed.sh
+        read_only: true
+    command: ["sh", "/mnt/seed.sh"]
+
+volumes:
+  db_data:
+  wp_data:

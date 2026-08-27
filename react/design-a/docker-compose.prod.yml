@@ -1,0 +1,89 @@
+# Production deployment for React Design A (headless storefront + WooCommerce backend).
+# Public URL: https://tur3.dancingsalamanders.com
+#   - Next.js storefront proxied from :3010 by nginx at /
+#   - WordPress admin/API backend proxied from :3011 by nginx at /wp-admin, /wp-json, etc.
+# wp-admin: admin / demo1234
+#
+# Usage: docker compose -f docker-compose.prod.yml up -d --build
+#
+# Note: building nextjs requires the full repo checkout as context (Dockerfile is at
+# react/app/Dockerfile, context is the repo root). This is the same as local dev.
+name: tur-secondhand-react-design-a
+services:
+  db:
+    image: mysql:8.0
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+      MYSQL_ROOT_PASSWORD: wordpress
+    volumes:
+      - db_data:/var/lib/mysql
+
+  wordpress:
+    image: wordpress:6.9-php8.2-apache
+    depends_on:
+      - db
+    restart: unless-stopped
+    ports:
+      # Exposed so nginx can proxy /wp-admin & /wp-json paths to this container.
+      - "127.0.0.1:3011:80"
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+    volumes:
+      - wp_data:/var/www/html
+
+  wpcli:
+    image: wordpress:cli-php8.2
+    user: "33:33"
+    depends_on:
+      - db
+      - wordpress
+    restart: on-failure
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+      # This is the URL the store owner will use to access /wp-admin. Nginx proxies
+      # /wp-admin|/wp-json|/wp-login.php|/wp-content|/wp-includes from tur3 to port 3011.
+      WORDPRESS_SITE_URL: https://tur3.dancingsalamanders.com
+    volumes:
+      - wp_data:/var/www/html
+      - type: bind
+        source: ../../content
+        target: /mnt/content
+        read_only: true
+      - type: bind
+        source: ../../assets
+        target: /mnt/assets
+        read_only: true
+      - type: bind
+        source: ./seed.sh
+        target: /mnt/seed.sh
+        read_only: true
+    command: ["sh", "/mnt/seed.sh"]
+
+  nextjs:
+    build:
+      context: ../..
+      dockerfile: react/app/Dockerfile
+      args:
+        NEXT_PUBLIC_THEME_VARIANT: a
+    restart: unless-stopped
+    depends_on:
+      - wordpress
+    ports:
+      - "127.0.0.1:3010:3000"
+    environment:
+      # Server-to-server over the internal Docker network (never exposed to the browser).
+      WORDPRESS_STORE_API_URL: http://wordpress
+      NEXT_PUBLIC_THEME_VARIANT: a
+
+volumes:
+  db_data:
+  wp_data:
