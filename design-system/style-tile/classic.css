@@ -1,0 +1,11 @@
+.variant-classic {
+  --font-heading: "Fraunces", Georgia, serif;
+  --color-primary: #2b3a2a;
+  --color-primary-dark: #1c271b;
+  --color-on-primary: #f5f0e6;
+  --color-surface: #ffffff;
+  --color-text: #232922;
+  --color-text-muted: #5c6b58;
+  --color-border: #ddd4c2;
+  --color-accent: #8a6d3b;
+}

@@ -1,0 +1,70 @@
+{
+  "home": {
+    "hero_tagline": "Ge friluftslivet ett nytt liv",
+    "hero_subtext": "Secondhand outdoor- och skidutrustning i hjärtat av Östersund",
+    "circular_economy_blurb": "Varje plagg och pryl vi säljer är en sak mindre som slängs och en sak mer som får leva vidare på fjället, i skogen eller på pisten.",
+    "featured_categories_title": "Handla efter kategori",
+    "hours_location_teaser": "Hamngatan 10, Östersund · Ons–Fre 11–18 · Lör 11–16"
+  },
+  "om_oss": {
+    "title": "Om oss",
+    "body": "Tur Second Hand öppnade nyligen på Hamngatan 10 i Östersund. Vi säljer noga utvalda begagnade friluftsprylar och skidutrustning — för plånboken, för friluftslivet och för miljön. Hos oss kan en varm jacka, ett par pjäxor eller en ryggsäck få följa med ut på nya äventyr i stället för att bli liggande. Vi tror på cirkulär konsumtion som känns enkel i vardagen och självklar nära fjäll, skog och snö. Därför fyller vi butiken med saker vi själva hade velat ta med oss ut, säsong efter säsong."
+  },
+  "kontakt": {
+    "title": "Kontakt",
+    "address": "Hamngatan 10, 831 33 Östersund",
+    "phone": "070-976 13 37",
+    "hours": "Tisdag Stängt · Onsdag 11–18 · Torsdag 11–18 · Fredag 11–18 · Lördag 11–16 · Söndag Stängt · Måndag Stängt",
+    "instagram_url": "https://www.instagram.com/tur.secondhand/"
+  },
+  "galleri": {
+    "title": "Galleri",
+    "images": [
+      "trail-1.jpg",
+      "trail-2.jpg",
+      "trail-3.jpg",
+      "trail-4.jpg",
+      "trail-5.jpg",
+      "trail-6.jpg",
+      "trail-7.jpg",
+      "trail-8.jpg"
+    ]
+  },
+  "butik": {
+    "title": "Butik",
+    "intro": "Bläddra bland våra kategorier av begagnad outdoor- och skidutrustning.",
+    "categories": [
+      "Jackor",
+      "Ryggsäckar",
+      "Skidor & Pjäxor",
+      "Sovsäckar",
+      "Kläder"
+    ]
+  },
+  "produkt": {
+    "add_to_cart_label": "Lägg i varukorg",
+    "condition_label": "Skick",
+    "price_label": "Pris",
+    "category_label": "Kategori"
+  },
+  "varukorg": {
+    "title": "Varukorg",
+    "empty_state_text": "Din varukorg är tom.",
+    "empty_state_link_text": "Fortsätt handla",
+    "quantity_label": "Antal",
+    "subtotal_label": "Delsumma",
+    "remove_label": "Ta bort",
+    "checkout_button_label": "Till kassan"
+  },
+  "kassa": {
+    "title": "Kassa",
+    "name_label": "Namn",
+    "email_label": "E-post",
+    "address_label": "Adress",
+    "validation_required_text": "Det här fältet är obligatoriskt.",
+    "submit_button_label": "Genomför köp",
+    "order_summary_title": "Ordersammanfattning",
+    "confirmation_title": "Tack för ditt köp!",
+    "confirmation_order_number_label": "Ordernummer"
+  }
+}

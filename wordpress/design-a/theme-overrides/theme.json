@@ -1,0 +1,205 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/theme.json",
+  "version": 3,
+  "settings": {
+    "color": {
+      "palette": [
+        {
+          "slug": "primary",
+          "name": "Primary",
+          "color": "#2b3a2a"
+        },
+        {
+          "slug": "primary-dark",
+          "name": "Primary Dark",
+          "color": "#1c271b"
+        },
+        {
+          "slug": "on-primary",
+          "name": "On Primary",
+          "color": "#f5f0e6"
+        },
+        {
+          "slug": "surface",
+          "name": "Surface",
+          "color": "#ffffff"
+        },
+        {
+          "slug": "ink",
+          "name": "Text",
+          "color": "#232922"
+        },
+        {
+          "slug": "text-muted",
+          "name": "Text Muted",
+          "color": "#5c6b58"
+        },
+        {
+          "slug": "border",
+          "name": "Border",
+          "color": "#ddd4c2"
+        },
+        {
+          "slug": "accent",
+          "name": "Accent",
+          "color": "#8a6d3b"
+        },
+        {
+          "slug": "base",
+          "name": "Base",
+          "color": "#f5f0e6"
+        },
+        {
+          "slug": "success",
+          "name": "Success",
+          "color": "#3f7d4e"
+        },
+        {
+          "slug": "error",
+          "name": "Error",
+          "color": "#a4442b"
+        }
+      ]
+    },
+    "typography": {
+      "fontFamilies": [
+        {
+          "slug": "heading",
+          "name": "Heading",
+          "fontFamily": "\"Fraunces\", Georgia, serif"
+        },
+        {
+          "slug": "body",
+          "name": "Body",
+          "fontFamily": "\"Inter\", \"Helvetica Neue\", Arial, sans-serif"
+        }
+      ],
+      "fontSizes": [
+        {
+          "slug": "small",
+          "name": "Small",
+          "size": "0.875rem"
+        },
+        {
+          "slug": "medium",
+          "name": "Medium",
+          "size": "1rem"
+        },
+        {
+          "slug": "large",
+          "name": "Large",
+          "size": "1.25rem"
+        },
+        {
+          "slug": "x-large",
+          "name": "X-Large",
+          "size": "1.75rem"
+        },
+        {
+          "slug": "xx-large",
+          "name": "XX-Large",
+          "size": "2.5rem"
+        },
+        {
+          "slug": "xxx-large",
+          "name": "XXX-Large",
+          "size": "3.5rem"
+        }
+      ]
+    },
+    "spacing": {
+      "spacingSizes": [
+        {
+          "slug": "1",
+          "name": "1",
+          "size": "4px"
+        },
+        {
+          "slug": "2",
+          "name": "2",
+          "size": "8px"
+        },
+        {
+          "slug": "3",
+          "name": "3",
+          "size": "12px"
+        },
+        {
+          "slug": "4",
+          "name": "4",
+          "size": "16px"
+        },
+        {
+          "slug": "5",
+          "name": "5",
+          "size": "24px"
+        },
+        {
+          "slug": "6",
+          "name": "6",
+          "size": "32px"
+        },
+        {
+          "slug": "7",
+          "name": "7",
+          "size": "48px"
+        },
+        {
+          "slug": "8",
+          "name": "8",
+          "size": "64px"
+        },
+        {
+          "slug": "9",
+          "name": "9",
+          "size": "96px"
+        }
+      ]
+    },
+    "custom": {
+      "radiusSm": "4px",
+      "radiusMd": "10px",
+      "radiusLg": "20px",
+      "shadowSm": "0 1px 2px rgba(20, 20, 10, 0.08)",
+      "shadowMd": "0 4px 16px rgba(20, 20, 10, 0.12)",
+      "containerMax": "1200px"
+    }
+  },
+  "styles": {
+    "color": {
+      "background": "var:preset|color|base",
+      "text": "var:preset|color|ink"
+    },
+    "typography": {
+      "fontFamily": "var:preset|font-family|body"
+    },
+    "elements": {
+      "heading": {
+        "color": {
+          "text": "var:preset|color|ink"
+        },
+        "typography": {
+          "fontFamily": "var:preset|font-family|heading"
+        }
+      },
+      "button": {
+        "color": {
+          "background": "var:preset|color|primary",
+          "text": "var:preset|color|on-primary"
+        },
+        ":hover": {
+          "color": {
+            "background": "var:preset|color|primary-dark",
+            "text": "var:preset|color|on-primary"
+          }
+        },
+        ":focus": {
+          "color": {
+            "background": "var:preset|color|primary-dark",
+            "text": "var:preset|color|on-primary"
+          }
+        }
+      }
+    }
+  }
+}

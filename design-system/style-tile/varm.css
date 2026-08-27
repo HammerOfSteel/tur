@@ -1,0 +1,11 @@
+.variant-varm {
+  --font-heading: "Work Sans", "Helvetica Neue", Arial, sans-serif;
+  --color-primary: #c9603a;
+  --color-primary-dark: #9c4527;
+  --color-on-primary: #f5f0e6;
+  --color-surface: #fbf5ee;
+  --color-text: #2c2420;
+  --color-text-muted: #6b5d54;
+  --color-border: #e3d6c8;
+  --color-accent: #4b6b4f;
+}

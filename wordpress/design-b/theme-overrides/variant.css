@@ -1,0 +1,7 @@
+/* Skogsstig Varm — variant-only overrides not expressible in theme.json */
+
+/* The warm terracotta primary-dark overlay reads as too strong a color
+   cast on the hero photo at the theme default 50% dim; soften it. */
+.wp-block-cover .has-primary-dark-background-color.has-background-dim {
+	opacity: 0.38;
+}

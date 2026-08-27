@@ -1,0 +1,136 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "./theme-tokens.generated.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-heading: var(--tst-font-heading);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+
+  /* Brand tokens sourced from design-system/tokens/*.json (see theme-tokens.generated.css) —
+   * exposed as Tailwind utilities so components can use e.g. bg-brand-primary, text-brand-
+   * accent, shadow-brand-md, container-brand without any hand-copied hex/px value. */
+  --color-brand-primary: var(--tst-color-primary);
+  --color-brand-primary-dark: var(--tst-color-primary-dark);
+  --color-brand-on-primary: var(--tst-color-on-primary);
+  --color-brand-surface: var(--tst-color-surface);
+  --color-brand-base: var(--tst-color-base);
+  --color-brand-ink: var(--tst-color-text);
+  --color-brand-ink-muted: var(--tst-color-text-muted);
+  --color-brand-border: var(--tst-color-border);
+  --color-brand-accent: var(--tst-color-accent);
+  --color-brand-success: var(--tst-color-success);
+  --color-brand-error: var(--tst-color-error);
+  --shadow-brand-sm: var(--tst-shadow-sm);
+  --shadow-brand-md: var(--tst-shadow-md);
+  --container-brand: var(--tst-container-max);
+  --radius-brand-sm: var(--tst-radius-sm);
+  --radius-brand-md: var(--tst-radius-md);
+  --radius-brand-lg: var(--tst-radius-lg);
+  --spacing-brand-1: var(--tst-space-1);
+  --spacing-brand-2: var(--tst-space-2);
+  --spacing-brand-3: var(--tst-space-3);
+  --spacing-brand-4: var(--tst-space-4);
+  --spacing-brand-5: var(--tst-space-5);
+  --spacing-brand-6: var(--tst-space-6);
+  --spacing-brand-7: var(--tst-space-7);
+  --spacing-brand-8: var(--tst-space-8);
+  --spacing-brand-9: var(--tst-space-9);
+  --text-brand-sm: var(--tst-text-sm);
+  --text-brand-base: var(--tst-text-base);
+  --text-brand-lg: var(--tst-text-lg);
+  --text-brand-xl: var(--tst-text-xl);
+  --text-brand-2xl: var(--tst-text-2xl);
+  --text-brand-3xl: var(--tst-text-3xl);
+}
+
+:root {
+  --background: var(--tst-color-base);
+  --foreground: var(--tst-color-text);
+  --card: var(--tst-color-surface);
+  --card-foreground: var(--tst-color-text);
+  --popover: var(--tst-color-surface);
+  --popover-foreground: var(--tst-color-text);
+  --primary: var(--tst-color-primary);
+  --primary-foreground: var(--tst-color-on-primary);
+  --secondary: var(--tst-color-surface);
+  --secondary-foreground: var(--tst-color-text);
+  --muted: var(--tst-color-base);
+  --muted-foreground: var(--tst-color-text-muted);
+  --accent: var(--tst-color-accent);
+  --accent-foreground: var(--tst-color-on-primary);
+  --destructive: var(--tst-color-error);
+  --border: var(--tst-color-border);
+  --input: var(--tst-color-border);
+  --ring: var(--tst-color-primary);
+  --chart-1: var(--tst-color-primary);
+  --chart-2: var(--tst-color-accent);
+  --chart-3: var(--tst-color-primary-dark);
+  --chart-4: var(--tst-color-text-muted);
+  --chart-5: var(--tst-color-border);
+  --radius: 0.625rem;
+  --sidebar: var(--tst-color-surface);
+  --sidebar-foreground: var(--tst-color-text);
+  --sidebar-primary: var(--tst-color-primary);
+  --sidebar-primary-foreground: var(--tst-color-on-primary);
+  --sidebar-accent: var(--tst-color-accent);
+  --sidebar-accent-foreground: var(--tst-color-on-primary);
+  --sidebar-border: var(--tst-color-border);
+  --sidebar-ring: var(--tst-color-primary);
+}
+
+/* Dark mode intentionally omitted: this is a public storefront demo, not an app, and no
+ * .dark class is ever applied. */
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
+}

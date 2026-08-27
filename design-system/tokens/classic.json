@@ -1,0 +1,11 @@
+{
+  "fontHeading": "\"Fraunces\", Georgia, serif",
+  "colorPrimary": "#2b3a2a",
+  "colorPrimaryDark": "#1c271b",
+  "colorOnPrimary": "#f5f0e6",
+  "colorSurface": "#ffffff",
+  "colorText": "#232922",
+  "colorTextMuted": "#5c6b58",
+  "colorBorder": "#ddd4c2",
+  "colorAccent": "#8a6d3b"
+}

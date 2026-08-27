@@ -1,0 +1,12 @@
+/*
+Theme Name: Tur Second Hand
+Template: twentytwentyfive
+Version: 0.1.0
+Text Domain: tur-secondhand
+*/
+
+/* Keep the hero heading/subheading readable no matter which part of the
+   photo sits behind them — a soft shadow on top of the color-overlay dim. */
+.wp-block-cover .has-on-primary-color {
+	text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55);
+}

@@ -1,0 +1,7 @@
+# Used only when building react/app/Dockerfile (context is the monorepo root — see that
+# Dockerfile's comment for why). Keeps the build context small and avoids copying host-side
+# node_modules/.next into the image (those are rebuilt fresh inside the deps/builder stages).
+react/app/node_modules
+react/app/.next
+wordpress/*/wp_data
+**/.DS_Store

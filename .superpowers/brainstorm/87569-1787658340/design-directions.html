@@ -1,0 +1,71 @@
+<h2>Two design directions (both "rustic/outdoorsy")</h2>
+<p class="subtitle">These become Design A and Design B — reused across both the WordPress build and the React build. Click one, both, or neither and tell me what to mix.</p>
+
+<div class="options" data-multiselect>
+  <div class="option" data-choice="a" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>"Skogsstig" (Forest Trail)</h3>
+      <p>Deep forest green + warm birch/tan, serif display headings, soft edges, editorial magazine feel.</p>
+    </div>
+  </div>
+  <div class="option" data-choice="b" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>"Fjällkant" (Mountain Edge)</h3>
+      <p>Charcoal/slate + moss green + burnt-orange accent, bold condensed sans headings, sharp edges, rugged gear-shop feel.</p>
+    </div>
+  </div>
+</div>
+
+<div class="split">
+  <div class="mockup">
+    <div class="mockup-header">A — Skogsstig (Forest Trail)</div>
+    <div class="mockup-body" style="padding:0;background:#f5f0e6;">
+      <div style="background:#2b3a2a;color:#f5f0e6;padding:14px 18px;display:flex;justify-content:space-between;align-items:center;font-family:Georgia,serif;">
+        <strong style="font-size:18px;letter-spacing:1px;">TUR SECOND HAND</strong>
+        <div style="font-size:12px;">Hem &nbsp; Butik &nbsp; Om oss &nbsp; Kontakt &nbsp; 🛒</div>
+      </div>
+      <div style="position:relative;">
+        <img src="sm_2.jpg" style="width:100%;height:220px;object-fit:cover;display:block;filter:sepia(15%) saturate(85%);">
+        <div style="position:absolute;inset:0;background:linear-gradient(0deg,rgba(20,25,15,.55),transparent 60%);display:flex;align-items:flex-end;padding:16px;">
+          <div>
+            <div style="font-family:Georgia,serif;font-size:26px;color:#fff;">Ge friluftslivet ett nytt liv</div>
+            <div style="font-size:12px;color:#e8e2d0;margin-top:4px;">Secondhand outdoor- & skidutrustning i Östersund</div>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;padding:16px;">
+        <img src="sm_6.jpg" style="width:33%;height:90px;object-fit:cover;border-radius:6px;">
+        <img src="sm_9.jpg" style="width:33%;height:90px;object-fit:cover;border-radius:6px;">
+        <img src="sm_7.jpg" style="width:33%;height:90px;object-fit:cover;border-radius:6px;">
+      </div>
+      <div style="padding:0 16px 16px;font-family:Georgia,serif;color:#2b3a2a;font-size:13px;">Jackor · Ryggsäckar · Skidor & pjäxor</div>
+    </div>
+  </div>
+
+  <div class="mockup">
+    <div class="mockup-header">B — Fjällkant (Mountain Edge)</div>
+    <div class="mockup-body" style="padding:0;background:#1c1f1d;">
+      <div style="background:#111312;color:#e7e2d6;padding:14px 18px;display:flex;justify-content:space-between;align-items:center;font-family:'Arial Narrow',sans-serif;text-transform:uppercase;letter-spacing:2px;">
+        <strong style="font-size:16px;color:#d97b3f;">TUR SECOND HAND</strong>
+        <div style="font-size:11px;">Shop &nbsp; Om oss &nbsp; Kontakt &nbsp; 🛒</div>
+      </div>
+      <div style="position:relative;">
+        <img src="sm_3.jpg" style="width:100%;height:220px;object-fit:cover;display:block;filter:contrast(1.1) saturate(0.9);">
+        <div style="position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.7),transparent 55%);display:flex;align-items:flex-end;padding:16px;">
+          <div>
+            <div style="font-family:'Arial Narrow',sans-serif;font-weight:800;font-size:28px;color:#fff;text-transform:uppercase;">Andra hands<span style="color:#d97b3f;">äventyr</span></div>
+            <div style="font-size:12px;color:#b9c2b3;margin-top:4px;">Beprövad utrustning för fjäll, skog & skidbacke</div>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;padding:16px;">
+        <img src="sm_10.jpg" style="width:33%;height:90px;object-fit:cover;border:2px solid #d97b3f;">
+        <img src="sm_4.jpg" style="width:33%;height:90px;object-fit:cover;border:2px solid #556b52;">
+        <img src="sm_5.jpg" style="width:33%;height:90px;object-fit:cover;border:2px solid #556b52;">
+      </div>
+      <div style="padding:0 16px 16px;font-family:'Arial Narrow',sans-serif;color:#d97b3f;font-size:12px;letter-spacing:1px;text-transform:uppercase;">Jackor // Ryggsäckar // Ski & Boots</div>
+    </div>
+  </div>
+</div>

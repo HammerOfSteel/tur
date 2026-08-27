@@ -1,0 +1,95 @@
+# Demo host port: http://localhost:8091 | wp-admin credentials: admin / demo1234 | self-contained:
+# only depends on wordpress/theme/, wordpress/design-a/theme-overrides/, content/, assets/, and this folder.
+#
+# `name:` is pinned explicitly because react/design-a/ has the SAME directory basename
+# ("design-a") — without this, Docker Compose's default project-name-from-directory-basename
+# behavior makes the two stacks collide (one `docker compose up` in either folder would
+# silently reuse/recreate the other's containers and volumes). See the 2026-08-26 incident
+# note in OVERVIEW.md.
+name: tur-secondhand-wordpress-design-a
+services:
+  db:
+    image: mysql:8.0
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+      MYSQL_ROOT_PASSWORD: wordpress
+    volumes:
+      - db_data:/var/lib/mysql
+
+  wordpress:
+    image: wordpress:6.9-php8.2-apache
+    depends_on:
+      - db
+    restart: unless-stopped
+    ports:
+      - "8091:80"
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+    volumes:
+      - wp_data:/var/www/html
+      - type: bind
+        source: ../theme/tur-secondhand
+        target: /var/www/html/wp-content/themes/tur-secondhand
+        read_only: true
+      - type: bind
+        source: ./theme-overrides/theme.json
+        target: /var/www/html/wp-content/themes/tur-secondhand/theme.json
+        read_only: true
+      - type: bind
+        source: ./theme-overrides/variant.css
+        target: /var/www/html/wp-content/themes/tur-secondhand/variant.css
+        read_only: true
+
+  wpcli:
+    image: wordpress:cli-php8.2
+    # Run as the SAME uid/gid as the `wordpress` service's www-data user (33, Debian-based
+    # image) rather than this image's own www-data (82, Alpine-based) — otherwise files this
+    # container creates on the shared wp_data volume (uploads, language packs, etc.) are not
+    # writable/readable correctly across the two containers.
+    user: "33:33"
+    depends_on:
+      - db
+      - wordpress
+    restart: on-failure
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+    volumes:
+      - wp_data:/var/www/html
+      - type: bind
+        source: ../theme/tur-secondhand
+        target: /var/www/html/wp-content/themes/tur-secondhand
+        read_only: true
+      - type: bind
+        source: ./theme-overrides/theme.json
+        target: /var/www/html/wp-content/themes/tur-secondhand/theme.json
+        read_only: true
+      - type: bind
+        source: ./theme-overrides/variant.css
+        target: /var/www/html/wp-content/themes/tur-secondhand/variant.css
+        read_only: true
+      - type: bind
+        source: ../../content
+        target: /mnt/content
+        read_only: true
+      - type: bind
+        source: ../../assets
+        target: /mnt/assets
+        read_only: true
+      - type: bind
+        source: ./seed.sh
+        target: /mnt/seed.sh
+        read_only: true
+    command: ["sh", "/mnt/seed.sh"]
+
+volumes:
+  db_data:
+  wp_data:

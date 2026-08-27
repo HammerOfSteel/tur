@@ -1,0 +1,92 @@
+# Demo host port: storefront http://localhost:3002 | wp-admin (headless backend, admin-only)
+# http://localhost:8094/wp-admin — admin/demo1234 | self-contained: only depends on content/,
+# assets/, and this folder. No Skogsstig theme is installed on the WordPress side of this
+# stack — that WordPress instance exists purely so WooCommerce + its Store API are available;
+# it is never visited by an end customer, only by the owner via /wp-admin. The `nextjs`
+# service is the actual storefront a customer/demo visitor sees. Same shared react/app/ image
+# as Design A — only NEXT_PUBLIC_THEME_VARIANT and the backend it talks to differ.
+#
+# `name:` is pinned explicitly from the very first version of this file (see OVERVIEW.md's
+# 2026-08-26 Docker Compose project-name collision incident on the design-a folders — the same
+# basename collision risk applies here between react/design-b/ and wordpress/design-b/).
+name: tur-secondhand-react-design-b
+services:
+  db:
+    image: mysql:8.0
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+      MYSQL_ROOT_PASSWORD: wordpress
+    volumes:
+      - db_data:/var/lib/mysql
+
+  wordpress:
+    image: wordpress:6.9-php8.2-apache
+    depends_on:
+      - db
+    restart: unless-stopped
+    ports:
+      - "8094:80"
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+    volumes:
+      - wp_data:/var/www/html
+
+  wpcli:
+    image: wordpress:cli-php8.2
+    # Run as the SAME uid/gid as the `wordpress` service's www-data user (33, Debian-based
+    # image) rather than this image's own www-data (82, Alpine-based) — otherwise files this
+    # container creates on the shared wp_data volume (uploads, language packs, etc.) are not
+    # writable/readable correctly across the two containers.
+    user: "33:33"
+    depends_on:
+      - db
+      - wordpress
+    restart: on-failure
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+    volumes:
+      - wp_data:/var/www/html
+      - type: bind
+        source: ../../content
+        target: /mnt/content
+        read_only: true
+      - type: bind
+        source: ../../assets
+        target: /mnt/assets
+        read_only: true
+      - type: bind
+        source: ./seed.sh
+        target: /mnt/seed.sh
+        read_only: true
+    command: ["sh", "/mnt/seed.sh"]
+
+  nextjs:
+    build:
+      context: ../..
+      dockerfile: react/app/Dockerfile
+      args:
+        NEXT_PUBLIC_THEME_VARIANT: b
+    restart: unless-stopped
+    depends_on:
+      - wordpress
+    ports:
+      - "3002:3000"
+    environment:
+      # Internal Docker network hostname (service name "wordpress"), not localhost:8094 — the
+      # Next.js container reaches WooCommerce over the compose network, not the host port
+      # mapping.
+      WORDPRESS_STORE_API_URL: http://wordpress
+      NEXT_PUBLIC_THEME_VARIANT: b
+
+volumes:
+  db_data:
+  wp_data:

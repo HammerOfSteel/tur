@@ -1,0 +1,98 @@
+[
+  {
+    "id": "jacka-fjallraven-nuuk",
+    "name": "Fjällräven Nuuk Parka",
+    "price_sek": 899,
+    "condition": "Mycket gott skick, varm och fin med bara lätta spår av användning",
+    "category": "Jackor",
+    "image": "Fjällräven_Nuuk_Parka.webp"
+  },
+  {
+    "id": "jacka-haglofs-roc",
+    "name": "Haglöfs Roc GTX Jacket",
+    "price_sek": 749,
+    "condition": "Använd några säsonger men fortfarande tät och fullt redo för fjället",
+    "category": "Jackor",
+    "image": "Haglöfs_Roc_GTX_Jacket.avif"
+  },
+  {
+    "id": "jacka-patagonia-torrentshell",
+    "name": "Patagonia Torrentshell Regnjacka",
+    "price_sek": 495,
+    "condition": "Bra bruksskick, lite slitage vid muddarna men fungerar utmärkt",
+    "category": "Jackor",
+    "image": "Patagonia_Torrentshell_Regnjacka.jpg"
+  },
+  {
+    "id": "ryggsack-osprey-atmos",
+    "name": "Osprey Atmos AG 65",
+    "price_sek": 599,
+    "condition": "Mycket gott skick, alla spännen och remmar är hela",
+    "category": "Ryggsäckar",
+    "image": "Osprey_Atmos_AG_65.webp"
+  },
+  {
+    "id": "ryggsack-fjallraven-kanken",
+    "name": "Fjällräven Kånken",
+    "price_sek": 299,
+    "condition": "Fint använt skick med lite patina som bara gör den snyggare",
+    "category": "Ryggsäckar",
+    "image": "Fjällräven_Kånken.jpg"
+  },
+  {
+    "id": "ryggsack-bergans-rondane",
+    "name": "Bergans Rondane 46L",
+    "price_sek": 425,
+    "condition": "Använd men väl omhändertagen, bärsystemet känns fortfarande stadigt",
+    "category": "Ryggsäckar",
+    "image": "Bergans_Rondane_46L.jpg"
+  },
+  {
+    "id": "skidor-alpina-nova",
+    "name": "Alpina Nova Allmountain Skidor",
+    "price_sek": 650,
+    "condition": "Några repor på ovansidan men belagen är fina och klara för fler turer",
+    "category": "Skidor & Pjäxor",
+    "image": "Alpina_Nova_Allmountain_Skidor.avif"
+  },
+  {
+    "id": "pjaxor-salomon-qst",
+    "name": "Salomon QST Pjäxor",
+    "price_sek": 550,
+    "condition": "Bra skick, spännen fungerar som de ska och innerskorna är fräscha",
+    "category": "Skidor & Pjäxor",
+    "image": "Salomon_QST_Pjäxor.webp"
+  },
+  {
+    "id": "sovsack-nordisk-puk",
+    "name": "Nordisk Puk +10 Sovsäck",
+    "price_sek": 350,
+    "condition": "Lätt använd, ren och smidig för sommarens övernattningar",
+    "category": "Sovsäckar",
+    "image": "Nordisk_Puk_plus10_Sovsäck.jpg"
+  },
+  {
+    "id": "sovsack-fjallraven-singi",
+    "name": "Fjällräven Singi Three Seasons",
+    "price_sek": 699,
+    "condition": "Mycket gott skick, loftet är kvar och dragkedjan löper fint",
+    "category": "Sovsäckar",
+    "image": "Fjällräven_Singi_Three_Seasons.jpg"
+  },
+  {
+    "id": "klader-devold-ull",
+    "name": "Devold Ulltröja",
+    "price_sek": 225,
+    "condition": "Mjukt och fint skick, inga hål eller noppor som stör",
+    "category": "Kläder",
+    "image": "Devold_Ulltröja.webp"
+  },
+  {
+    "id": "klader-haglofs-fleece",
+    "name": "Haglöfs Fleecejacka",
+    "price_sek": 189,
+    "condition": "Använt men fungerar utmärkt, perfekt som mellanlager",
+    "category": "Kläder",
+    "image": "Haglöfs_Fleecejacka.webp"
+  }
+]

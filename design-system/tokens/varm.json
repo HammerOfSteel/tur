@@ -1,0 +1,11 @@
+{
+  "fontHeading": "\"Work Sans\", \"Helvetica Neue\", Arial, sans-serif",
+  "colorPrimary": "#c9603a",
+  "colorPrimaryDark": "#9c4527",
+  "colorOnPrimary": "#f5f0e6",
+  "colorSurface": "#fbf5ee",
+  "colorText": "#2c2420",
+  "colorTextMuted": "#6b5d54",
+  "colorBorder": "#e3d6c8",
+  "colorAccent": "#4b6b4f"
+}
