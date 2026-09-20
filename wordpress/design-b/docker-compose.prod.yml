@@ -1,6 +1,6 @@
 # Production deployment for WordPress Design B.
 # Public URL: https://tur2.dancingsalamanders.com
-# Nginx proxies :3009 → this service. wp-admin: admin / demo1234
+# Nginx proxies :3021 → this service. wp-admin: admin / demo1234
 #
 # Usage: docker compose -f docker-compose.prod.yml up -d
 name: tur-secondhand-wordpress-design-b
@@ -22,7 +22,7 @@ services:
       - db
     restart: unless-stopped
     ports:
-      - "127.0.0.1:3009:80"
+      - "127.0.0.1:3021:80"
     environment:
       WORDPRESS_DB_HOST: db:3306
       WORDPRESS_DB_USER: wordpress

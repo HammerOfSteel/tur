@@ -1,7 +1,7 @@
 # Production deployment for React Design A (headless storefront + WooCommerce backend).
 # Public URL: https://tur3.dancingsalamanders.com
-#   - Next.js storefront proxied from :3010 by nginx at /
-#   - WordPress admin/API backend proxied from :3011 by nginx at /wp-admin, /wp-json, etc.
+#   - Next.js storefront proxied from :3022 by nginx at /
+#   - WordPress admin/API backend proxied from :3023 by nginx at /wp-admin, /wp-json, etc.
 # wp-admin: admin / demo1234
 #
 # Usage: docker compose -f docker-compose.prod.yml up -d --build
@@ -28,7 +28,7 @@ services:
     restart: unless-stopped
     ports:
       # Exposed so nginx can proxy /wp-admin & /wp-json paths to this container.
-      - "127.0.0.1:3011:80"
+      - "127.0.0.1:3023:80"
     environment:
       WORDPRESS_DB_HOST: db:3306
       WORDPRESS_DB_USER: wordpress
@@ -50,7 +50,7 @@ services:
       WORDPRESS_DB_PASSWORD: wordpress
       WORDPRESS_DB_NAME: wordpress
       # This is the URL the store owner will use to access /wp-admin. Nginx proxies
-      # /wp-admin|/wp-json|/wp-login.php|/wp-content|/wp-includes from tur3 to port 3011.
+      # /wp-admin|/wp-json|/wp-login.php|/wp-content|/wp-includes from tur3 to port 3023.
       WORDPRESS_SITE_URL: https://tur3.dancingsalamanders.com
     volumes:
       - wp_data:/var/www/html
@@ -78,7 +78,7 @@ services:
     depends_on:
       - wordpress
     ports:
-      - "127.0.0.1:3010:3000"
+      - "127.0.0.1:3022:3000"
     environment:
       # Server-to-server over the internal Docker network (never exposed to the browser).
       WORDPRESS_STORE_API_URL: http://wordpress

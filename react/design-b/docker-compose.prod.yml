@@ -1,7 +1,7 @@
 # Production deployment for React Design B (headless storefront + WooCommerce backend).
 # Public URL: https://tur4.dancingsalamanders.com
-#   - Next.js storefront proxied from :3012 by nginx at /
-#   - WordPress admin/API backend proxied from :3013 by nginx at /wp-admin, /wp-json, etc.
+#   - Next.js storefront proxied from :3024 by nginx at /
+#   - WordPress admin/API backend proxied from :3025 by nginx at /wp-admin, /wp-json, etc.
 # wp-admin: admin / demo1234
 #
 # Usage: docker compose -f docker-compose.prod.yml up -d --build
@@ -24,7 +24,7 @@ services:
       - db
     restart: unless-stopped
     ports:
-      - "127.0.0.1:3013:80"
+      - "127.0.0.1:3025:80"
     environment:
       WORDPRESS_DB_HOST: db:3306
       WORDPRESS_DB_USER: wordpress
@@ -72,7 +72,7 @@ services:
     depends_on:
       - wordpress
     ports:
-      - "127.0.0.1:3012:3000"
+      - "127.0.0.1:3024:3000"
     environment:
       WORDPRESS_STORE_API_URL: http://wordpress
       NEXT_PUBLIC_THEME_VARIANT: b
