@@ -327,7 +327,7 @@ if $WP plugin is-installed woocommerce >/dev/null 2>&1; then
     $WP plugin activate woocommerce >/dev/null
   fi
 else
-  $WP plugin install woocommerce --activate >/dev/null
+  $WP plugin install woocommerce --version=11.0.1 --activate >/dev/null
 fi
 
 $WP option update woocommerce_store_address "Hamngatan 10" >/dev/null
